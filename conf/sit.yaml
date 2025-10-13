@@ -1,0 +1,36 @@
+# 多应用域名端口
+app:
+  order:
+    host: http://order-sit.company.com
+    port: 80
+    ssl: false # 该应用是否加密，加密则https,未加密则是http
+  pay:
+    host: https://pay-sit.company.com
+    port: 443
+    ssl: true
+
+# 多数据源
+db:
+  order:
+    host: 10.1.1.21
+    port: 3306
+    user: order_user
+    pwd: ENC(xxx)        # 可后续接解密
+    db: order_sit
+  finance:
+    host: 10.1.1.22
+    port: 3306
+    user: fin_user
+    pwd: ENC(xxx)
+    db: finance_sit
+
+# Redis 集群
+redis:
+  cache:
+    host: 10.1.1.31
+    port: 6379
+    db: 0
+  session:
+    host: 10.1.1.32
+    port: 6379
+    db: 1

@@ -1,0 +1,68 @@
+## 针对业务流的yaml用例
+name: 基金购买完整流程
+desc: 管理端新增→审核→上架→C端购买
+steps:
+  # 1. 管理端登录
+  - step: 1
+    app: fund-client
+    user: c-user
+    api: /client/fund/list
+    method: POST
+    payload:  #  data/json/fund_body.json 可以这样外挂json
+      user: admin
+      pwd: "${ADMIN_PWD}"          # 变量替换
+    extract:
+      adminToken: $.token          # 后续步骤复用
+
+  # 2. 产品新增
+  - step: 2
+    url: admin/fund/create
+    method: POST
+    headers:
+      Authorization: "Bearer ${adminToken}"
+    payload: >
+      { 'fundName': "自动化测试基金",fundCode: "AUTO${TIMESTAMP}"}
+    extract:
+      fundId: $.data.fundId
+
+  # 3. 审核通过
+  - step: 3
+    url: admin/fund/audit
+    method: PUT
+    headers:
+      Authorization: "Bearer ${adminToken}"
+    payload:
+      fundId: "${fundId}"
+      status: 1
+
+  # 4. 上架
+  - step: 4
+    url: admin/fund/publish
+    method: PUT
+    headers:
+      Authorization: "Bearer ${adminToken}"
+    payload:
+      fundId: "${fundId}"
+
+  # 5. C 端登录
+  - step: 5
+    url: client/login
+    method: POST
+    payload:
+      mobile: "${USER_MOBILE}"
+      smsCode: "123456"
+    extract:
+      clientToken: $.token
+
+  # 6. 购买
+  - step: 6
+    url: client/fund/purchase
+    method: POST
+    headers:
+      Authorization: "Bearer ${clientToken}"
+    payload:
+      fundId: "${fundId}"
+      amount: 1000
+    assert:
+      - $.code == 200
+      - $.msg == '购买成功'

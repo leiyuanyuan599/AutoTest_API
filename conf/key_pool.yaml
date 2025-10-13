@@ -1,0 +1,19 @@
+app:
+  fund-admin:               # 应用 A
+    users:
+      admin:
+        encrypt:
+          type: sm4
+          key: "0123456789abcdef0123456789abcdef"
+      reviewer:
+        encrypt:
+          type: sm4
+          key: "0123456789abcdef0123456789abcdef"
+
+  fund-client:              # 应用 B
+    users:
+      c-user:
+        encrypt:
+          type: aes
+          key: "abcdef0123456789abcdef0123456789"
+          iv:  "1234567890abcdef"

@@ -1,0 +1,24 @@
+
+## 针对单接口测试的yaml
+-
+  case_id: pay_success
+  method: POST
+  url: /api/pay
+  payload:
+    merNo: M0001
+    amt: 100.00
+    currency: CNY
+  expect_code: 200
+  expect_msg: success
+
+-
+  case_id: pay_pwd_error
+  method: POST
+  url: /api/pay
+  payload:
+    merNo: M0001
+    amt: 100.00
+    currency: CNY
+    pwd: wrong
+  expect_code: 401
+  expect_msg: password error
