@@ -15,7 +15,7 @@ from common.crypto_utils import (
     aes_encrypt, aes_decrypt,
     sm4_encrypt, sm4_decrypt,
     des3_encrypt, des3_decrypt,
-    rsa_sign
+    rsa_sign, generate_random_string
 )
 from common.logger import logger
 from common.settings import base_url
@@ -28,16 +28,22 @@ class BaseRequest:
         self.s = requests.Session()
         self.s.headers.update({"Content-Type": "application/json"})
         self.encrypt_type = encrypt_type
-        self.key, self.iv, self.sign_key = key, iv, sign_key
+        self.key = key
+        self.iv = iv
+        self.sign_key = sign_key
         self.token = token
         self.appname = appname
-
         # ===== 私有工具 =====
 
     def _encrypt_body(self, data: dict) -> str:
-        """dict -> json-str -> encrypt -> base64"""
+        """
+        加密请求body
+        dict -> json-str -> encrypt -> base64
+        """
         plaintext = json.dumps(data, separators=(',', ':')).encode()
         if self.encrypt_type == "aes":
+            self.key = generate_random_string(16)
+            self.iv = generate_random_string(16)
             return aes_encrypt(self.key, plaintext, self.iv)
         if self.encrypt_type == "sm4":
             return sm4_encrypt(self.key, plaintext)

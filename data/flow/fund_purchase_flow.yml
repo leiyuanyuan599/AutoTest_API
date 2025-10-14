@@ -4,8 +4,8 @@ desc: 管理端新增→审核→上架→C端购买
 steps:
   # 1. 管理端登录
   - step: 1
-    app: fund-client
-    user: c-user
+    app: Bluepay
+    user: admin
     api: /client/fund/list
     method: POST
     payload:  #  data/json/fund_body.json 可以这样外挂json

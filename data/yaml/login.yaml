@@ -1,24 +1,18 @@
-
-## 针对单接口测试的yaml
--
-  case_id: pay_success
-  method: POST
-  url: /api/pay
-  payload:
-    merNo: M0001
-    amt: 100.00
-    currency: CNY
-  expect_code: 200
-  expect_msg: success
-
--
-  case_id: pay_pwd_error
-  method: POST
-  url: /api/pay
-  payload:
-    merNo: M0001
-    amt: 100.00
-    currency: CNY
-    pwd: wrong
-  expect_code: 401
-  expect_msg: password error
+# 单接口
+name: 获取JT登录链接以及token
+steps:
+  - step: 1
+    app: fund-client
+    method: POST
+    api: /open-api/jt/wallet/loginToken
+    payload_delta: >
+      {
+          "aesKey": "unlock-dev",
+          "appId": "4b585c9e8ad7462ab28b2c8cd73bc06c",
+          "countryCode": "TH",
+          "param": "{\"timestamp\":1748920528642,\"jtUuid\":\"uuu0988800123\",\"mobile\":\"0980800123\",\"centerNo\":\"CN002\",\"branchNo\":\"BRN001\",\"terminalType\":\"PC\",\"isIframe\":\"Y\"}",
+          "sign": "unlock-dev"
+      }
+    assert:
+      - $.code == 200
+      - $.token

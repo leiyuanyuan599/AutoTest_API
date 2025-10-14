@@ -1,35 +1,122 @@
 # 多应用域名端口
 app:
-  order:
-    host: http://order-sit.company.com
-    port: 80
+  BluePayService:
+    host: 'nettest.upay365.xyz'
+    port: 8050
     ssl: false # 该应用是否加密，加密则https,未加密则是http
-  pay:
-    host: https://pay-sit.company.com
-    port: 443
+  BluePayApp:
+    host: 'nettest.upay365.xyz'
+    port: 8933
     ssl: true
+    sign_private_key: |
+      -----BEGIN PRIVATE KEY-----
+      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDN+HmRnugIB9zk
+      Dg4CxVr17n8h6KgKg9V5ur62rZ8H+mQveloGAlxMPWDhJri650ZsluELKJ2DxJmo
+      JdGAUxYfigQvlT8Yqwg2PvbcrlfJa5QDIwjxZGgmBjg01LXSYGDGi2vuVBjE3/bJ
+      ETfhGUw2FOXsVxs1jKOYhzh07b0xF6HV/smdCjBQnzBfX5SvPU63njQvaDbDeKma
+      /d2a0UPHWkifzBPr50ftTwPHNfM55IKNtXY5ZQT6vmF3VqyZIVNxMV5C/XBgcufd
+      Jyf1NpGwEwbSyv7zo+/6glznZwMZ2ZOFKYSSgsB2vLdOC5PvIj4V83DzI8hFjjgp
+      lyunJX/DAgMBAAECggEAFIo0WVy+59oc4ZMzO3yB2yea/v8sDsxh0/9W+HGs+8cx
+      CXkKlDHVEXdHe3x4jI72u2p6a7nzp0nKRvXqhAEFIkUJsNMR1TxtF7fEt3IdaAU1
+      3/A0+pmYNz6EiWQy85VP4UzTCRPS2oM5IYj5iRWUP4pq+VwgZwEs6U+GxkZVCRmT
+      57lJE8XXjB6vETZftM5LWrKCl5GOFQCBr7x6oaR5NWNIASZc1tju7283ZiQzU8BZ
+      xI0NUVsWqzVBGqOtY5Uga6c8uWMP/tg3VzRdLxmC2iiUWww69/t/0DEA8npGEqTR
+      5QzB+0JZS+ZAKMFoCc2bKtDnIF4dZKfsLGfnM92oLQKBgQDqQQSS9q9tqXDVDHVL
+      kuH8q0mqFGWK1EpPlgQdvJQUZ1NpdsDgK61WiCurytFGhbqvOAvcdtRNvBMXeIHI
+      6w27gH4YYoVzYXcL/e68IxO8D8oLhaggVdExyCuHfDGAvwwlHaoAZ21IqFP7Wzu0
+      uAZt0wD3uGaaUSqI+RAB8twbzQKBgQDhF0906MqKe9loZDEW/B6FdcNwnzSqxsro
+      04QgBwL2s1fhg2VppDpr6BRoFzOiWFIcoHdKgHLn7B6xeA3In1kF/7dP9VrjmPSa
+      5BHNoaea+x/kG3bj22aZx69BjNkVgKpGKVkMqGrHkVISVtTu2xJL1Bdk6Kq9Twme
+      Nz4k/kQZzwKBgQCmcrJ0VpJKQnZo+6QwodqvtWnvTvTj03pF2JtuIbu6T7zmGDpu
+      Trqo3LLjK4bOLGF89T8AVPL/lR6fs8HMaLBmRaPTYdXfKSb0v2cuCWKRY0q2Ky9O
+      Yov1anz7lRR7ncRcbxqHlPYDBZA+7xGalJQE30Q1wLIu/nNRxl9Icy9RFQKBgAXM
+      K+e+9ziJ6BegPQNyiva1Ccukzh538FH+4LBSfekMxX6xe7M036xX1e64akQMMlE6
+      cNgiZtNCaaf4h6JbOFfHNlmA4E5saiBzL2I0f7SmMzQU4QMNa58aXZE6p3y+S6Ry
+      /DAvRlDNlWeThPiB+/6n/9JBi+REXOMOWTNquSZRAoGAUKYdrQdcJZOgRbypj5Dd
+      nftDwLxf25+imu2H7WZwqo0+nWmF/UWUE0t6hEx3BGWs22LdxgxfvweN6GH1ii9H
+      iX14IimDR0JQJTM0zH6sBstc6p7lKoWCHxRhHpIq8tU6CbzwJCPsyQuJ42ZpXRYq
+      1gHpU/uw6K3C0KIC4vIrMSs=
+      -----END PRIVATE KEY-----
+    encrypt_public_key: |
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyTvf28/7g44TxT7ZH+Nh
+      7a2wrMkNpQf9n7sTrNfr9LTUfKsQ6L513S3I5ZnkLeojrJdVn0Doce9W2GZVU4mR
+      nzq5iATc3g/3Wcw/JPujIz4M7w8KUsH/RfixU4LPqKSAd0oGpz6O9P6JeEGjXP26
+      ODrJtM8CuB7ENBVL/8OKUcqn7HvTXIjCjtKUJmoWqBoxztwarWlp+l6r9vxTglKw
+      hn2umA0I0C9BDmEJSDf15qMa77IJMVjndoGcJJiUtvVZNBqlXvlMyKUq9P+esbyD
+      e8zK+OGhgOFgvfU7sxxCDQz/vaeaySZl1rVe9DJNCSrDwWl5nr11Y0CP9oDpcWwC
+      iQIDAQAB
+      -----END PUBLIC KEY-----
+
+
+  JT_H5:
+    host: 'nettest.upay365.xyz'
+    port: 8050
+    ssl: true
+  JT_PC:
+    host: 'nettest.upay365.xyz'
+    port: 8050
+    ssl: true
+
 
 # 多数据源
 db:
-  order:
-    host: 10.1.1.21
+  Bluepay:
+    host: 'ddd02.v6.rocks'
+    port: 13306
+    user: bluepay_dev
+    psw: RPPhSQg82U%WfaG
+
+  ezpay:
+    host: 'ddd02.v6.rocks'
+    port: 13306
+    user: money_dev
+    psw: RPPhSQg82U%WfaG
+
+  paycoolsNation:
+    host: 'ddd02.v6.rocks'
+    port: 13306
+    user: money_dev
+    psw: RPPhSQg82U%WfaG
+
+  maPaycools:
+    host: 'ddd02.v6.rocks'
+    port: 13306
+    user: mapay_dev
+    psw: RPPhSQg82U%WfaG
+
+  food:
+    host: 'ddd02.v6.rocks'
+    port: 13306
+    user: food_dev
+    psw: RPPhSQg82U%WfaG
+
+  Philippines1:
+    host: 'rm-3ns8772x1029i6l6r2o.mysql.rds.aliyuncs.com'
     port: 3306
-    user: order_user
-    pwd: ENC(xxx)        # 可后续接解密
-    db: order_sit
-  finance:
-    host: 10.1.1.22
+    user: paycools_dev
+    psw: 823aDSsdD8S9!sDdf#D23DS3D
+
+  Philippines2:
+    host: 'pc-3nspcev80r7g4c01h-public.rwlb.rds.aliyuncs.com'
     port: 3306
-    user: fin_user
-    pwd: ENC(xxx)
-    db: finance_sit
+    user: paycools_dev
+    psw: 823aDSsdD8S9!sDdf#D23DS3D
+
+  Indonesia:
+    host: 'ddd02.v6.rocks'
+    port: 13306
+    user: ez_dev
+    psw: RPPhSQg82U%WfaG
 
 # Redis 集群
 redis:
-  cache:
-    host: 10.1.1.31
-    port: 6379
-    db: 0
+  Bluepay:
+    host: '192.168.41.51'
+    port: 8402
+    user: db6
+    psw: 890324
+
   session:
     host: 10.1.1.32
     port: 6379

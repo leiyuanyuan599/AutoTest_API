@@ -9,12 +9,22 @@
 """
 
 import base64
+import random
+import string
 from Crypto.Cipher import PKCS1_v1_5, AES, DES3
 from Crypto.PublicKey import RSA
 from Crypto.Util.Padding import pad, unpad
 from gmssl.sm4 import CryptSM4, SM4_ENCRYPT, SM4_DECRYPT
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
+
+
+def generate_random_string(length: int = 16) -> str:
+    """
+    生成一个由大小写字母和数字组成的随机字符串，默认长度16
+    """
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
 
 
 # ----------- 1. RSA ---------------
@@ -52,15 +62,18 @@ def rsa_verify(public_key: str, message: bytes, signature: str) -> bool:
 
 
 # ----------- 2. AES (CBC, 256) ---------------
-def aes_encrypt(key: bytes, plaintext: bytes, iv: bytes) -> str:
-    """key: 32 bytes, iv: 16 bytes"""
-    cipher = AES.new(key, AES.MODE_CBC, iv)
+def aes_encrypt(key: str, plaintext: bytes, iv: str) -> str:
+    key_bytes = key.encode()[:16]      # 16 B AES-128
+    iv_bytes = iv.encode()[:16]
+    cipher = AES.new(key_bytes, AES.MODE_CBC, iv_bytes)
     ct_bytes = cipher.encrypt(pad(plaintext, AES.block_size))
     return base64.b64encode(ct_bytes).decode()
 
 
-def aes_decrypt(key: bytes, ciphertext: str, iv: bytes) -> bytes:
-    cipher = AES.new(key, AES.MODE_CBC, iv)
+def aes_decrypt(key: str, ciphertext: str, iv: str) -> bytes:
+    key_bytes = key.encode()[:16]
+    iv_bytes = iv.encode()[:16]
+    cipher = AES.new(key_bytes, AES.MODE_CBC, iv_bytes)
     return unpad(cipher.decrypt(base64.b64decode(ciphertext)), AES.block_size)
 
 

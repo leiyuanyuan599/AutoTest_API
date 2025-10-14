@@ -1,13 +1,13 @@
 app:
-  fund-admin:               # 应用 A
+  Bluepay:               # 应用 A
     users:
       admin:
         encrypt:
-          type: sm4
+          type: aes
           key: "0123456789abcdef0123456789abcdef"
       reviewer:
         encrypt:
-          type: sm4
+          type: aes
           key: "0123456789abcdef0123456789abcdef"
 
   fund-client:              # 应用 B
