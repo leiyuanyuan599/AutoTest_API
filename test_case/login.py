@@ -12,6 +12,6 @@ from common.engine import FlowRunner
 
 
 @allure.epic("JT_login")
-def test_fund_list_inherit():
-    runner = FlowRunner()
+def test_fund_list_inherit(default_req):
+    runner = FlowRunner(default_req)
     runner.run("data/yaml/login.yaml")

@@ -19,7 +19,13 @@ from common.BaseRequest import BaseRequest
 @pytest.fixture(scope="session")
 def default_req():
     """单接口/无加密场景直接用它"""
-    return BaseRequest(token=None)
+    return BaseRequest(
+        token=None,
+        encrypt_type=None,
+        key=None,
+        iv=None,
+        sign_key=None
+    )
 
 
 # ---------------- 多应用-多用户-加密池（按需拿） ----------------
@@ -40,7 +46,7 @@ def user_req(request):
         cfg = _user_pool()[app]["users"][user]
         enc = cfg["encrypt"]
         return BaseRequest(
-            base_url=base_url(app),
+            host_url=base_url(app),
             encrypt_type=enc["type"],
             key=bytes.fromhex(enc["key"]),
             iv=bytes.fromhex(enc["iv"]) if enc.get("iv") else None,

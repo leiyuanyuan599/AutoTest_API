@@ -3,7 +3,7 @@ app:
   BluePayService:
     host: 'nettest.upay365.xyz'
     port: 8050
-    ssl: false # 该应用是否加密，加密则https,未加密则是http
+    ssl: false
   BluePayApp:
     host: 'nettest.upay365.xyz'
     port: 8933

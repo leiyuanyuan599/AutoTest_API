@@ -11,9 +11,6 @@ import functools
 import os
 import yaml
 
-import os, yaml, functools
-
-
 # --------- 通用 yaml 加载 ---------
 def load_yaml(file_name: str):
     """相对项目根目录读取 yaml"""

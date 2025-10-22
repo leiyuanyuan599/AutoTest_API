@@ -42,14 +42,15 @@ def _merge_payload(self, step: dict) -> dict:
 
 
 class FlowRunner:
-    def __init__(self, flow_file=None):
+    def __init__(self,default_req, flow_file=None):
         # 未传路径时，用调用者文件路径映射到 data/
         if flow_file is None:
-            caller_file = inspect.stack()[1].filename          # 谁 new 的我
+            caller_file = inspect.stack()[1].filename
             rel = os.path.relpath(caller_file, os.path.join(os.path.dirname(__file__), '..', 'test_cases'))
-            rel = re.sub(r'\.py$', '.yml', rel)                # test_xxx.py → test_xxx.yml
+            rel = re.sub(r'\.py$', '.yml', rel)
             flow_file = os.path.join('data', rel)
         self.flow_file = flow_file
+        self._default_req = default_req
         self.vars = {}
         self.reqs = {}
 
@@ -91,13 +92,16 @@ class FlowRunner:
 
     # ---------- 工厂：拿 (app,user) 级别的 BaseRequest ----------
     def _get_req(self, app: str, user: str):
+        if user is None:  # ← 新增
+            # 用全局默认实例（单接口/无加密）
+            return self._default_req
         cache_key = (app, user)
         if cache_key not in self.reqs:
             cfg = _key_pool()[app]["users"][user]  # 两级查找
             token = self.vars.get(f"{user}Token")  # 前面 extract 的 token
             enc = cfg["encrypt"]
             self.reqs[cache_key] = BaseRequest(
-                base_url=base_url(app),
+                host_url=base_url(app),
                 token=token,
                 encrypt_type=enc["type"],
                 key=bytes.fromhex(enc["key"]),

@@ -2,8 +2,9 @@
 name: 获取JT登录链接以及token
 steps:
   - step: 1
-    app: fund-client
+    app: BluePayService
     method: POST
+    user:
     api: /open-api/jt/wallet/loginToken
     payload_delta: >
       {

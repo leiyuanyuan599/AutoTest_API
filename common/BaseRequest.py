@@ -24,15 +24,21 @@ from common.settings import base_url
 class BaseRequest:
     _support_encrypt = {"aes", "sm4", "des3"}
 
-    def __init__(self, encrypt_type=None, key=None, iv=None, sign_key=None, token=None, appname=None):
+    def __init__(self, encrypt_type=None,
+                 key=None, iv=None,
+                 sign_key=None,
+                 token=None,
+                 appname=None):
         self.s = requests.Session()
         self.s.headers.update({"Content-Type": "application/json"})
         self.encrypt_type = encrypt_type
+        self.appname = appname
+        self.host_url = base_url(self.appname)
         self.key = key
         self.iv = iv
         self.sign_key = sign_key
         self.token = token
-        self.appname = appname
+
         # ===== 私有工具 =====
 
     def _encrypt_body(self, data: dict) -> str:
@@ -73,7 +79,7 @@ class BaseRequest:
 
     def send(self, method, url, payload: dict = None, **kwargs):
         self._apply_auth()
-        url = base_url(self.appname) + url
+        url = self.host_url + url
 
         # ===== 1. 组装请求报文 =====
         if payload is None:

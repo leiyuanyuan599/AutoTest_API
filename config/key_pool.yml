@@ -1,5 +1,5 @@
 app:
-  Bluepay:               # 应用 A
+  BluePayService:               # 应用 A
     users:
       admin:
         encrypt:
@@ -10,7 +10,7 @@ app:
           type: aes
           key: "0123456789abcdef0123456789abcdef"
 
-  fund-client:              # 应用 B
+  BluePayApp:              # 应用 B
     users:
       c-user:
         encrypt:
