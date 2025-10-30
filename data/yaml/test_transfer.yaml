@@ -1,0 +1,17 @@
+name: 极兔H5，用户正常转账
+steps:
+  - step: 1 获取极兔登录的token
+    app: BluePayManage1
+#    user: admin
+    api: open-api/jt/wallet/loginToken
+    method: POST
+    payload:  >
+      {
+          "aesKey": "unlock-dev",
+          "appId": "4b585c9e8ad7462ab28b2c8cd73bc06c",
+          "countryCode": "TH",
+          "param": "{\"timestamp\":1748920528642,\"jtUuid\":\"U1969295214128398336\",\"mobile\":\"0659959938\",\"centerNo\":\"CN002\",\"branchNo\":\"BRN001\",\"terminalType\":\"PC\",\"isIframe\":\"Y\"}",
+          "sign": "unlock-dev"
+      }
+    extract:
+      adminToken: $.data.token          # 后续步骤复用

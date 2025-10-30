@@ -101,7 +101,6 @@ class FlowRunner:
             token = self.vars.get(f"{user}Token")  # 前面 extract 的 token
             enc = cfg["encrypt"]
             self.reqs[cache_key] = BaseRequest(
-                host_url=base_url(app),
                 token=token,
                 encrypt_type=enc["type"],
                 key=bytes.fromhex(enc["key"]),

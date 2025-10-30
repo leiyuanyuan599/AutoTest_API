@@ -25,7 +25,8 @@ def generate_random_string(length: int = 16) -> str:
     """
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
-
+def decode_base64(encode_str):
+    return base64.b64decode(encode_str).decode('utf-8', errors='ignore')
 
 # ----------- 1. RSA ---------------
 def rsa_encrypt(public_key: str, plaintext: bytes) -> str:

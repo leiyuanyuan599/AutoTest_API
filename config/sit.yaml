@@ -1,13 +1,19 @@
 # 多应用域名端口
 app:
-  BluePayService:
+  BluePayManage1: # 注册
     host: 'nettest.upay365.xyz'
     port: 8050
-    ssl: false
+#    encrypt_type: 'aes'
+
+  BluePayManage2: # 导入
+    host: 'nettest.upay365.xyz'  # ddd01.v6.rocks
+    port: 8934
+    encrypt_type: 'aes'
+
   BluePayApp:
     host: 'nettest.upay365.xyz'
     port: 8933
-    ssl: true
+    encrypt_type: 'aes'
     sign_private_key: |
       -----BEGIN PRIVATE KEY-----
       MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDN+HmRnugIB9zk
@@ -51,13 +57,12 @@ app:
 
   JT_H5:
     host: 'nettest.upay365.xyz'
-    port: 8050
-    ssl: true
+    port: 6003
+    encrypt_type: 'aes'
   JT_PC:
     host: 'nettest.upay365.xyz'
     port: 8050
     ssl: true
-
 
 # 多数据源
 db:

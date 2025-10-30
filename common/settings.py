@@ -27,8 +27,9 @@ def _cfg():
 
 def base_url(app: str) -> str:
     node = _cfg()["app"][app]
-    scheme = "https" if node.get("ssl") else "http"
-    return f"{scheme}://{node['host']}:{node['port']}"
+    host = node["host"]
+    port = node["port"]
+    return f"https://{host}:{port}"
 
 
 # ===== 2. 数据库 =====
