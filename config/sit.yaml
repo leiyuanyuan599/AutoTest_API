@@ -61,8 +61,8 @@ app:
     encrypt_type: 'aes'
   JT_PC:
     host: 'nettest.upay365.xyz'
-    port: 8050
-    ssl: true
+    port: 6008
+    encrypt_type: 'aes'
 
 # 多数据源
 db:

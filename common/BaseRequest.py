@@ -65,8 +65,6 @@ class BaseRequest:
         """
         plaintext = json.dumps(data, separators=(',', ':')).encode()
         if self.encrypt_type == "aes":
-            self.key = generate_random_string(16)
-            self.iv = generate_random_string(16)
             return aes_encrypt(self.key, plaintext, self.iv)
         if self.encrypt_type == "sm4":
             return sm4_encrypt(self.key, plaintext)
